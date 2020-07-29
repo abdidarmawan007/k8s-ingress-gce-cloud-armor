@@ -111,7 +111,7 @@ metadata:
     ingress.gcp.kubernetes.io/pre-shared-cert: "production-frontend-zeus"
 spec:
   rules:
-    - host: www.lemonilo.com
+    - host: www.yourdomain.com
       http:
         paths:
         - backend:
