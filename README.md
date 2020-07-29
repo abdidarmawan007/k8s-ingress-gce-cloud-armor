@@ -35,7 +35,7 @@ kubectl apply -f deployment.yaml
 
 ### Test SQL Injection
 ```
-curl https:// www.yourdomain.com/?id=1%20or%201=1
+curl https://www.yourdomain.com/?id=1%20or%201=1
 
 403 Forbidden
 ```
