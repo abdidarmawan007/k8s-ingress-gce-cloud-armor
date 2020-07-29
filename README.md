@@ -36,7 +36,7 @@ kubectl apply -f deployment.yaml
 curl -I https://www.yourdomain.com/?id=1%20or%201=1
 403 Forbidden
 ```
-### Test LFI
+### Test Local File Inclusion (LFI)
 ```
 curl -I http://abdi.lemonilo.com/?file=../../../../etc/passwd
 403 Forbidden
