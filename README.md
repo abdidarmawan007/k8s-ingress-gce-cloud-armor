@@ -29,4 +29,12 @@ gcloud beta compute ssl-certificates create production-frontend-zeus --domains w
 ```
 
 ### Create GKE deployment,service,configmap,hpa,ingress gce
+```
 kubectl apply -f deployment.yaml
+```
+
+### Test SQL Injection
+curl https:// www.yourdomain.com/?id=1%20or%201=1
+
+403 Forbidden
+
