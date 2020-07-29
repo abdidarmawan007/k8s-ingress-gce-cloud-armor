@@ -19,8 +19,6 @@ gcloud compute --project=zeus-007 security-policies rules create 1003 --action "
 
 gcloud compute --project=zeus-007 security-policies rules create 1004 --action "deny-403" --security-policy=production-waf --description="RFI Sensitivity Level 2/3/4" --expression=evaluatePreconfiguredExpr\(\'rfi-stable\'\)
 ```
-![alt text](https://i.imgur.com/mWume3H.png)
-
 
 ### Create IP public for ingress gce and ssl managed by google cloud
 ```
