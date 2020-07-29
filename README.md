@@ -27,3 +27,6 @@ gcloud compute --project=zeus-007 security-policies rules create 1005 --action "
 gcloud beta compute --project=zeus-007 addresses create production-frontend-zeus --global --network-tier=PREMIUM
 gcloud beta compute ssl-certificates create production-frontend-zeus --domains www.yourdomain.com --global
 ```
+
+### Create GKE deployment,service,configmap,hpa,ingress gce
+kubectl apply -f deployment.yaml
