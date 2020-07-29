@@ -5,7 +5,7 @@ Ingress GCE with WAF Cloud Armor: SQL injection,Cross-Site Scripting (XSS),Local
 ![alt text](https://i.imgur.com/Kw2mxrs.png)
 
 
-## Create Cloud Armor WAF
+### Create Cloud Armor WAF
 ```
 gcloud compute --project=zeus-007 security-policies create production-waf --description="production waf for gke"
 
@@ -19,4 +19,11 @@ gcloud compute --project=zeus-007 security-policies rules create 1004 --action "
 
 gcloud compute --project=zeus-007 security-policies rules create 1005 --action "deny-403" --security-policy=production-waf --description="RFI Sensitivity Level 2/3/4" --expression=evaluatePreconfiguredExpr\(\'rfi-canary\'\)
 ```
+![alt text](https://i.imgur.com/mWume3H.png)
 
+
+### Create IP public for ingress gce and ssl managed by google cloud
+```
+gcloud beta compute --project=zeus-007 addresses create production-frontend-zeus --global --network-tier=PREMIUM
+gcloud beta compute ssl-certificates create production-frontend-zeus --domains www.yourdomain.com --global
+```
