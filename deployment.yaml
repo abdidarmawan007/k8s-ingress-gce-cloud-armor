@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: production-frontend-zeus
+  #namespace: production
+spec:
+  replicas: 2
+  revisionHistoryLimit: 4
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 50%
+  selector:
+    matchLabels:
+      app: production-frontend-zeus  
+  template:
+    metadata:
+      labels:
+        app: production-frontend-zeus
+        env: production
+    spec:
+      containers:
+      - name: production-frontend-zeus
+        image: nginxdemos/hello
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        resources:
+            requests:
+               cpu: "400m"
+               memory: "400Mi"
+            limits:
+               cpu: "800m"
+               memory: "800Mi"
+        # health checks self healing check port 80 response 200,
+        # if containers error (400-500) kubernetes restart the pod
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 6
+          periodSeconds: 5
+        livenessProbe:
+           httpGet:
+             path: /
+             port: 80
+           initialDelaySeconds: 6
+           periodSeconds: 5
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sh", "-c", "sleep 10"]
+---
+# auto scaling pods
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: production-frontend-zeus
+  #namespace: production
+spec:
+  maxReplicas: 25
+  minReplicas: 2
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: production-frontend-zeus
+  targetCPUUtilizationPercentage: 70              
+---
+# service
+apiVersion: v1
+kind: Service
+metadata:
+  name: production-frontend-zeus
+  #namespace: production
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+    beta.cloud.google.com/backend-config: '{"ports": {"80":"production-frontend-zeus"}}'
+  labels:
+    app: production-frontend-zeus
+spec:
+  selector:
+    app: production-frontend-zeus
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  type: ClusterIP
+---
+# config for timeout ingress gcp
+apiVersion: cloud.google.com/v1beta1
+kind: BackendConfig
+metadata:
+  name: production-frontend-zeus
+  #namespace: production
+spec:
+  timeoutSec: 80  # A timeout of seconds
+  connectionDraining:
+    drainingTimeoutSec: 60 # A connection draining timeout of 60 seconds.
+  securityPolicy:
+    name: "production-waf" # cloud armor config
+---
+## Ingress LB GCP global loadbalancer with Static external IP public + SSL managed by GCP ##
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: production-frontend-zeus
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "production-frontend-zeus"
+    ingress.gcp.kubernetes.io/pre-shared-cert: "production-frontend-zeus"
+spec:
+  rules:
+    - host: www.lemonilo.com
+      http:
+        paths:
+        - backend:
+            serviceName: production-frontend-zeus
+            servicePort: 80
+    #- host: lemonilo.com
+    #  http:
+    #    paths:
+    #    - backend:
+    #        serviceName: production-frontend-zeus-redirect-www 
+    #        servicePort: 80        
+                    
