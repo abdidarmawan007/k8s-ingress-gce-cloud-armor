@@ -104,6 +104,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: production-frontend-zeus
+  #namespace: production
   annotations:
     kubernetes.io/ingress.global-static-ip-name: "production-frontend-zeus"
     ingress.gcp.kubernetes.io/pre-shared-cert: "production-frontend-zeus"
