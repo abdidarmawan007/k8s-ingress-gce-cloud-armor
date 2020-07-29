@@ -1,2 +1,5 @@
-# k8s-ingress-gce-cloud-armor
-Ingress GCE with Cloud Armor WAF: SQL injection,Cross-Site Scripting (XSS),Local file inclusion (LFI),Remote Code Execution (RCE),Remote File Inclusion (RFI)
+# GKE Ingress GCE + WAF Cloud Armor
+Ingress GCE with WAF Cloud Armor: SQL injection,Cross-Site Scripting (XSS),Local file inclusion (LFI),Remote Code Execution (RCE),Remote File Inclusion (RFI)
+
+
+![alt text](https://i.imgur.com/Kw2mxrs.png)
