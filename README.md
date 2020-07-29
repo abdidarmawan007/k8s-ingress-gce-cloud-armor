@@ -39,3 +39,17 @@ curl https://www.yourdomain.com/?id=1%20or%201=1
 
 403 Forbidden
 ```
+```
+python waf-test.py http://www.yourdomain.com
+
+## WAF Testing on http://www.yourdomain.com ##
+  Total requests:  1,019 requests
+Success requests:  1,019 requests
+ Failed requests:      0 requests
+Allowed requests:    249 requests
+Blocked requests:    770 requests
+```
+#### tools for testing waf
+```
+https://github.com/page2me/waf-test
+```
