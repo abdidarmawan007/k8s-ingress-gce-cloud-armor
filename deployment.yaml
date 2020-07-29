@@ -34,8 +34,6 @@ spec:
             limits:
                cpu: "800m"
                memory: "800Mi"
-        # health checks self healing check port 80 response 200,
-        # if containers error (400-500) kubernetes restart the pod
         readinessProbe:
           httpGet:
             path: /
