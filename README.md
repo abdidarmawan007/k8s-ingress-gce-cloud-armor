@@ -13,11 +13,11 @@ gcloud compute --project=zeus-007 security-policies rules create 1000 --action "
 
 gcloud compute --project=zeus-007 security-policies rules create 1001 --action "deny-403" --security-policy=production-waf --description="XSS Sensitivity Level 2/3/4" --expression=evaluatePreconfiguredExpr\(\'xss-stable\'\)
 
-gcloud compute --project=zeus-007 security-policies rules create 1002 --action "deny-403" --security-policy=production-waf --description="LFI Sensitivity Levels 1/2/3/4" --expression=evaluatePreconfiguredExpr\(\'lfi-canary\'\)
+gcloud compute --project=zeus-007 security-policies rules create 1002 --action "deny-403" --security-policy=production-waf --description="LFI Sensitivity Levels 1/2/3/4" --expression=evaluatePreconfiguredExpr\(\'lfi-stable\'\)
 
-gcloud compute --project=zeus-007 security-policies rules create 1003 --action "deny-403" --security-policy=production-waf --description="RCE Sensitivity Levels 1/2/3/4" --expression=evaluatePreconfiguredExpr\(\'rce-canary\'\)
+gcloud compute --project=zeus-007 security-policies rules create 1003 --action "deny-403" --security-policy=production-waf --description="RCE Sensitivity Levels 1/2/3/4" --expression=evaluatePreconfiguredExpr\(\'rce-stable\'\)
 
-gcloud compute --project=zeus-007 security-policies rules create 1004 --action "deny-403" --security-policy=production-waf --description="RFI Sensitivity Level 2/3/4" --expression=evaluatePreconfiguredExpr\(\'rfi-canary\'\)
+gcloud compute --project=zeus-007 security-policies rules create 1004 --action "deny-403" --security-policy=production-waf --description="RFI Sensitivity Level 2/3/4" --expression=evaluatePreconfiguredExpr\(\'rfi-stable\'\)
 ```
 ![alt text](https://i.imgur.com/mWume3H.png)
 
