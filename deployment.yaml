@@ -97,7 +97,7 @@ spec:
   connectionDraining:
     drainingTimeoutSec: 60 # A connection draining timeout of 60 seconds.
   securityPolicy:
-    name: "production-waf" # cloud armor config
+    name: "production-frontend-waf" # cloud armor config
 ---
 ## Ingress LB GCP global loadbalancer with Static external IP public + SSL managed by GCP ##
 apiVersion: extensions/v1beta1
