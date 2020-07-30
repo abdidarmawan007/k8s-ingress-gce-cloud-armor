@@ -7,17 +7,18 @@ Ingress GCE with WAF Cloud Armor: SQL injection,Cross-Site Scripting (XSS),Local
 
 ### Create Cloud Armor WAF
 ```
-gcloud compute --project=zeus-007 security-policies create production-waf --description="production waf for gke"
+gcloud compute --project=zeus-007 security-policies create production-frontend-waf --description="production frontend waf"
 
-gcloud compute --project=zeus-007 security-policies rules create 1000 --action "deny-403" --security-policy=production-waf --description="SQLi Sensitivity Level 4" --expression=evaluatePreconfiguredExpr\(\'sqli-stable\'\)
 
-gcloud compute --project=zeus-007 security-policies rules create 1001 --action "deny-403" --security-policy=production-waf --description="XSS Sensitivity Level 2/3/4" --expression=evaluatePreconfiguredExpr\(\'xss-stable\'\)
+gcloud compute --project=zeus-007 security-policies rules create 1000 --action "deny-403" --security-policy=production-frontend-waf --description="SQL injection" --expression=evaluatePreconfiguredExpr\(\'sqli-stable\',\ \[\'owasp-crs-v030001-id942251-sqli\',$'\n'\ \'owasp-crs-v030001-id942420-sqli\',$'\n'\ \'owasp-crs-v030001-id942431-sqli\',$'\n'\ \'owasp-crs-v030001-id942460-sqli\',$'\n'\ \'owasp-crs-v030001-id942421-sqli\',$'\n'\ \'owasp-crs-v030001-id942200-sqli\',$'\n'\ \'owasp-crs-v030001-id942260-sqli\',$'\n'\ \'owasp-crs-v030001-id942432-sqli\'\]$'\n'\)
 
-gcloud compute --project=zeus-007 security-policies rules create 1002 --action "deny-403" --security-policy=production-waf --description="LFI Sensitivity Levels 1/2/3/4" --expression=evaluatePreconfiguredExpr\(\'lfi-stable\'\)
+gcloud compute --project=zeus-007 security-policies rules create 1001 --action "deny-403" --security-policy=production-frontend-waf --description=Cross-Site\ Scripting\ \(XSS\) --expression=evaluatePreconfiguredExpr\(\'xss-stable\',\ \[\'owasp-crs-v030001-id941150-xss\',$'\n'\ \'owasp-crs-v030001-id941320-xss\',$'\n'\ \'owasp-crs-v030001-id941330-xss\',$'\n'\ \'owasp-crs-v030001-id941340-xss\'\]\)
 
-gcloud compute --project=zeus-007 security-policies rules create 1003 --action "deny-403" --security-policy=production-waf --description="RCE Sensitivity Levels 1/2/3/4" --expression=evaluatePreconfiguredExpr\(\'rce-stable\'\)
+gcloud compute --project=zeus-007 security-policies rules create 1002 --action "deny-403" --security-policy=production-frontend-waf --description=Local\ file\ inclusion\ \(LFI\) --expression=evaluatePreconfiguredExpr\(\'lfi-stable\',\ \[\'owasp-crs-v030001-id930120-lfi\'\]\)
 
-gcloud compute --project=zeus-007 security-policies rules create 1004 --action "deny-403" --security-policy=production-waf --description="RFI Sensitivity Level 2/3/4" --expression=evaluatePreconfiguredExpr\(\'rfi-stable\'\)
+gcloud compute --project=zeus-007 security-policies rules create 1003 --action "deny-403" --security-policy=production-frontend-waf --description=Remote\ Code\ Execution\ \(RCE\) --expression=evaluatePreconfiguredExpr\(\'rce-stable\'\)
+
+gcloud compute --project=zeus-007 security-policies rules create 1004 --action "deny-403" --security-policy=production-frontend-waf --description=Remote\ File\ Inclusion\ \(RFI\) --expression=evaluatePreconfiguredExpr\(\'rfi-stable\',\ \[\'owasp-crs-v030001-id931130-rfi\'\]\)
 ```
 
 ### Create IP public for ingress gce and ssl managed by google cloud
