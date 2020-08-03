@@ -42,8 +42,15 @@ curl -I https://www.yourdomain.com/?id=1%20or%201=1
 curl -I http://abdi.lemonilo.com/?file=../../../../etc/passwd
 403 Forbidden
 ```
-
 ```
+curl -I http://abdi.lemonilo.com/.git/HEAD
+403 Forbidden
+```
+```
+curl -I http://abdi.lemonilo.com/.env
+403 Forbidden
+```
+
 python waf-test.py http://www.yourdomain.com
 
 ## WAF Testing on http://www.yourdomain.com ##
