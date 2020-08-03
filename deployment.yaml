@@ -116,7 +116,7 @@ spec:
         - backend:
             serviceName: production-frontend-zeus
             servicePort: 80
-    #- host: lemonilo.com
+    #- host: yourdomain.com
     #  http:
     #    paths:
     #    - backend:
