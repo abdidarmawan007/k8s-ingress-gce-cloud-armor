@@ -51,6 +51,7 @@ curl -I http://abdi.lemonilo.com/.env
 403 Forbidden
 ```
 
+```
 python waf-test.py http://www.yourdomain.com
 
 ## WAF Testing on http://www.yourdomain.com ##
