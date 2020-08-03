@@ -39,15 +39,15 @@ curl -I https://www.yourdomain.com/?id=1%20or%201=1
 ```
 ### Test Local File Inclusion (LFI)
 ```
-curl -I http://abdi.lemonilo.com/?file=../../../../etc/passwd
+curl -I http://www.yourdomain.com/?file=../../../../etc/passwd
 403 Forbidden
 ```
 ```
-curl -I http://abdi.lemonilo.com/.git/HEAD
+curl -I http://www.yourdomain.com/.git/HEAD
 403 Forbidden
 ```
 ```
-curl -I http://abdi.lemonilo.com/.env
+curl -I http://www.yourdomain.com/.env
 403 Forbidden
 ```
 
